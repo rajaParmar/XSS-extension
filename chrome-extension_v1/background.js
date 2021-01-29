@@ -22,7 +22,7 @@ chrome.webRequest.onBeforeRequest.addListener(
   	//need to confirm if only POST and GET requests are needed to be checked or more...eg PUT,HEAD,etc.
   	console.log(string_to_check)
   	var result = validate(string_to_check);
-  	if(validate == false){
+  	if(result == false){
   		blockingResponse.cancel = true;
   	}
   	return blockingResponse;

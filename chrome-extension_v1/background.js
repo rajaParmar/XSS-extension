@@ -2,9 +2,6 @@ function validate(string_to_check){
 	//check if <script> tag is present in the stirng_to_check
 	//if yes ... return false
 	//else return true
-
-
-
 }
 
 chrome.webRequest.onBeforeRequest.addListener(

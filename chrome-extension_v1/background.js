@@ -22,6 +22,7 @@ var pattern2 = /[^]*< *script *type *= *" *text *\/ *javascript *" *>[^]*< *\/ *
 
 var pattern3 = /[^]*< *script *src *= *"[^]*">[^]*< *\/ *script *>[^]*/i;
 
+var pattern4 = /<\s*script[^>]*>(.*?)<\s*\/\s*script>/i;
 
 if(pattern1.test(string_to_check) == true){
   console.log("pattern1 matched!");
@@ -33,6 +34,11 @@ if(pattern2.test(string_to_check) == true){
 }
 if(pattern3.test(string_to_check) == true){
   console.log("pattern3 matched!");
+  return false;
+}
+
+if(pattern4.test(string_to_check) == true){
+  console.log("pattern4 matched!");
   return false;
 }
 return true;

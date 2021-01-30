@@ -16,6 +16,26 @@ function validate(string_to_check){
 // <scripT src="asf"> asdf </  Script>  
 
 //need to check such possibilities....above list is not exhaustive.
+var pattern1 = /[^]*< *script *>[^]*< *\/ *script *>[^]*/i;
+
+var pattern2 = /[^]*< *script *type *= *" *text *\/ *javascript *" *>[^]*< *\/ *script *>[^]*/i;
+
+var pattern3 = /[^]*< *script *src *= *"[^]*">[^]*< *\/ *script *>[^]*/i;
+
+
+if(pattern1.test(string_to_check) == true){
+  console.log("pattern1 matched!");
+  return false;
+}
+if(pattern2.test(string_to_check) == true){
+  console.log("pattern2 matched!");
+  return false;
+}
+if(pattern3.test(string_to_check) == true){
+  console.log("pattern3 matched!");
+  return false;
+}
+return true;
 
 }
 

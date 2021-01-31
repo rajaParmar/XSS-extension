@@ -50,15 +50,15 @@ chrome.webRequest.onBeforeRequest.addListener(
   	blockingResponse = {
   		cancel : false
   	};
+
   	var string_to_check = "";
-  	if(details.method == "POST"){
-      try{
+  	try{
+    if(details.method == "POST"){
+      
       if(details.requestBody.formData != undefined)
   		  string_to_check = details.requestBody.formData.data[0];
-  	 }
-     catch(e){
-      console.log(e);
-     }
+  	 
+     
     }
   	if(details.method == "GET"){	
       string_to_check = decodeURIComponent((details.url + '').replace(/\+/g, '%20'));
@@ -68,7 +68,10 @@ chrome.webRequest.onBeforeRequest.addListener(
   		blockingResponse.cancel = true;
   	}
   	return blockingResponse;
-
+    }
+    catch(e){
+      console.log(e);
+    }
   },
   {urls: ["<all_urls>"]},
   ["blocking","requestBody"]

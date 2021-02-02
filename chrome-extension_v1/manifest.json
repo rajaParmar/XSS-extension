@@ -5,7 +5,7 @@
   "version": "1.0",
 
   // Recommended
-  "description": "Saves you form XSS",
+  "description": "Saves you form XSS and also some ADS :)",
 
   "background" : {
   	"scripts" : ["background.js"]

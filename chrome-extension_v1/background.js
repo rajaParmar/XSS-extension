@@ -2,7 +2,7 @@ function detect_ads(url){
   // var pattern1 = /[^]*< *script *>[^]*< *\/ *script *>[^]*/i;
   var pattern = /[^]*doubleclick[^]*/i;
   if(pattern.test(url) == true){
-    console.log("pattern1 matched!");
+    console.log("add pattern matched!");
     return false;
   }
   return true;
@@ -32,6 +32,7 @@ var pattern2 = /[^]*< *script *type *= *" *text *\/ *javascript *" *>[^]*< *\/ *
 
 var pattern3 = /[^]*< *script *src *= *"[^]*">[^]*< *\/ *script *>[^]*/i;
 
+var pattern4 = /<\s*script[^>]*>(.*?)<\s*\/\s*script>/i;
 
 if(pattern1.test(string_to_check) == true){
   console.log("pattern1 matched!");
@@ -46,6 +47,11 @@ if(pattern3.test(string_to_check) == true){
   console.log("pattern3 matched!");
   return false;
 }
+
+if(pattern4.test(string_to_check) == true){
+  console.log("pattern4 matched!");
+  return false;
+}
 return true;
 
 }
@@ -55,6 +61,7 @@ chrome.webRequest.onBeforeRequest.addListener(
   	blockingResponse = {
   		cancel : false
   	};
+
   	var string_to_check = "";
     try{
       console.log(details);

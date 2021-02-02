@@ -1,3 +1,13 @@
+function detect_ads(url){
+  // var pattern1 = /[^]*< *script *>[^]*< *\/ *script *>[^]*/i;
+  var pattern = /[^]*doubleclick[^]*/i;
+  if(pattern.test(url) == true){
+    console.log("pattern1 matched!");
+    return false;
+  }
+  return true;
+}
+
 function validate(string_to_check){
 	//check if <script> tag is present in the stirng_to_check
 	//if yes ... return false
@@ -27,6 +37,7 @@ if(pattern1.test(string_to_check) == true){
   console.log("pattern1 matched!");
   return false;
 }
+
 if(pattern2.test(string_to_check) == true){
   console.log("pattern2 matched!");
   return false;
@@ -45,24 +56,25 @@ chrome.webRequest.onBeforeRequest.addListener(
   		cancel : false
   	};
   	var string_to_check = "";
-  	if(details.method == "POST"){
-      try{
-      if(details.requestBody.formData != undefined)
-  		  string_to_check = details.requestBody.formData.data[0];
-  	 }
-     catch(e){
+    try{
+      console.log(details);
+    	if(details.method == "POST"){
+        if(details.requestBody.formData != undefined)
+    		  string_to_check = details.requestBody.formData.data[0];
+      }
+    	if(details.method == "GET"){	
+        string_to_check = decodeURIComponent((details.url + '').replace(/\+/g, '%20'));
+
+    	}
+    	var result = validate(string_to_check) && detect_ads(string_to_check);
+    	if(result == false){
+    		blockingResponse.cancel = true;
+    	}
+    	return blockingResponse;
+    }
+    catch(e){
       console.log(e);
      }
-    }
-  	if(details.method == "GET"){	
-      string_to_check = decodeURIComponent((details.url + '').replace(/\+/g, '%20'));
-  	}
-  	var result = validate(string_to_check);
-  	if(result == false){
-  		blockingResponse.cancel = true;
-  	}
-  	return blockingResponse;
-
   },
   {urls: ["<all_urls>"]},
   ["blocking","requestBody"]

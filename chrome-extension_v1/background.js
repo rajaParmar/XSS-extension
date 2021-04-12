@@ -70,7 +70,7 @@ chrome.webRequest.onBeforeRequest.addListener(
     		  string_to_check = details.requestBody.formData.data[0];
       }
     	if(details.method == "GET"){	
-        string_to_check = decodeURIComponent((details.url + '').replace(/\+/g, '%20'));
+        string_to_check = decodeURIComponent((details.url).replace(/\+/g, '%20'));
 
     	}
     	var result = validate(string_to_check) && detect_ads(string_to_check);
